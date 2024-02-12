@@ -1,21 +1,12 @@
-import { Request, Response } from "express";
-const express = require("express");
-const cors = require("cors");
+import AllowCors from "@/middlewares/middleware";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-const app = express();
+type Data = {
+    name: string;
+};
 
-// Menggunakan middleware CORS
-app.use(
-    cors({
-        origin: "http://www.situsa.com", // Atur domain yang diizinkan di sini
-    })
-);
+function handler(req: NextApiRequest, res: NextApiResponse) {
+    res.status(200).json({ name: "Naufal" });
+}
 
-// Endpoint yang mengizinkan akses
-app.get("/data", (req: Request, res: Response) => {
-    res.json({ message: "Data diakses dengan sukses!" });
-});
-
-app.listen(3000, () => {
-    console.log("Server berjalan pada port 3000");
-});
+export default AllowCors(handler);
